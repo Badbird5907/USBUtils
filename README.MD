@@ -7,7 +7,7 @@ A CLI tool to toggle the offline status on external drives on windows, as window
 ![demo gif](https://raw.githubusercontent.com/Badbird5907/USBUtils/master/imgs/demo.gif)
 
 ### CLI:
-`.\usbutils.exe <disk>` - <disk> = disk number to toggle
+`.\usbutils.exe <disk>` <disk> = disk number to toggle
 
 ## Building
 1. run `dotnet publish --configuration Release`
