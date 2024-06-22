@@ -32,25 +32,43 @@ namespace USBUtils
                 Console.WriteLine("No physical disks found.");
                 return;
             }
-            for (int i = 0; i < physicalDisks.Count; i++)
+            int diskNumber;
+            bool userInput = args.Length == 0;
+            if (userInput)
             {
-                Console.WriteLine($"Physical Disk #{i}: {physicalDisks[i].Description}");
+                try
+                {
+                    for (int i = 0; i < physicalDisks.Count; i++)
+                    {
+                        Console.WriteLine($"Physical Disk #{i}: {physicalDisks[i].Description}");
+                    }
+                    Console.WriteLine("Select a disk number:");
+                    diskNumber = int.Parse(Console.ReadLine());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return;
+                }
             }
-            Console.WriteLine("Select a disk number:");
-            try
+            else
             {
-                int diskNumber = int.Parse(Console.ReadLine());
-                PhysicalDisk disk = physicalDisks[diskNumber];
-                Console.WriteLine("Selected disk: " + disk.Description);
-                disk.SetOnlineStatus(!disk.GetOnlineStatus());
-                Console.WriteLine("Online status is now: " + disk.GetOnlineStatus());
+                if (!int.TryParse(args[0], out diskNumber) || diskNumber < 0 || diskNumber >= physicalDisks.Count)
+                {
+                    Console.WriteLine("Invalid input.");
+                    return;
+                }
             }
-            catch (Exception e)
+
+            PhysicalDisk disk = physicalDisks[diskNumber];
+            Console.WriteLine("Selected disk: " + disk.Description);
+            disk.SetOnlineStatus(!disk.GetOnlineStatus());
+            Console.WriteLine("Online status is now: " + disk.GetOnlineStatus());
+            if (userInput)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
             }
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
         }
         [DllImport("libc")]
         private static extern uint geteuid();
