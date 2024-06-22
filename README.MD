@@ -1,7 +1,13 @@
 # USBUtils
 A CLI tool to toggle the offline status on external drives on windows, as windows does not let you change the status via diskpart/powershell.
 
+
+## Usage
+### Interactive:
 ![demo gif](https://raw.githubusercontent.com/Badbird5907/USBUtils/master/imgs/demo.gif)
+
+### CLI:
+`.\usbutils.exe <disk>` - <disk> = disk number to toggle
 
 ## Building
 1. run `dotnet publish --configuration Release`
